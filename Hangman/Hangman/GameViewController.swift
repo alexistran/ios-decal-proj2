@@ -9,14 +9,116 @@
 import UIKit
 
 class GameViewController: UIViewController {
+    
 
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var word: UILabel!
+    @IBOutlet weak var incorrectGuesses: UILabel!
+    @IBOutlet weak var charGuess: UITextField!
+    @IBOutlet weak var guessButton: UIButton!
+    var phrase = ""
+    var currChar: Character = " "
+    var incorrectGuessCount: Int = 0
+   
+    
+    @IBAction func guess(_ sender: UIButton) {
+        print(charGuess.text)
+        if charGuess.text == "" {
+            
+        }
+        else if isGuessCorrect(charGuess.text!, phrase) {
+            let indexArr = getIndexes(phrase, currChar)
+            word.text = addCorrectChar(currChar, indexArr, word.text!)
+        } else {
+            let incG: String = String(currChar) + " "
+            incorrectGuesses.text = incorrectGuesses.text! + incG
+            incorrectGuessCount += 1
+            changeImage(incorrectGuessCount)
+        }
+        charGuess.text = ""
+    }
+    
+    func changeImage(_ count: Int) {
+        if count == 1 {
+            image.image = UIImage(named: "hangman2.gif")
+        } else if count == 2 {
+            image.image = UIImage(named: "hangman3.gif")
+        } else if count == 3 {
+            image.image = UIImage(named: "hangman4.gif")
+        } else if count == 4 {
+            image.image = UIImage(named: "hangman5.gif")
+        } else if count == 5 {
+            image.image = UIImage(named: "hangman6.gif")
+        } else if count == 6 {
+            image.image = UIImage(named: "hangman7.gif")
+        } else {
+            print("you lost")
+        }
+    }
+    
+    func addCorrectChar(_ char: Character, _ indexArr: [Int], _ wordChange: String) -> String {
+        var strArr = [Character](wordChange.characters)
+        var newStr = ""
+        for i in indexArr {
+            strArr[i] = char
+        }
+        for i in strArr {
+            newStr += String(i)
+        }
+        return newStr
+        
+    }
+    
+    func getIndexes(_ phrase: String, _ char: Character) -> [Int] {
+        let charArr = [Character](phrase.characters)
+        var count = 0
+        var arr = [Int]()
+        for i in charArr{
+            if i == char {
+                arr.append(count)
+            }
+            count += 1
+        }
+        return arr
+    }
+    
+    func turnPhraseToHidden(_ str: String) -> String {
+        let charsArr = [Character](str.characters)
+        var underscoreStr = ""
+        for i in charsArr {
+            if i == " " {
+                underscoreStr += " "
+            } else {
+                underscoreStr += "_ "
+            }
+        }
+        print(underscoreStr)
+        return underscoreStr
+    }
+    
+    func isGuessCorrect(_ c: String, _ phrase: String) -> Bool {
+        let cArr = [Character](c.characters)
+        currChar = cArr[0]
+        if (phrase.range(of: String(currChar)) == nil) {
+            return false
+        } else {
+        return true
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         let hangmanPhrases = HangmanPhrases()
-        let phrase = hangmanPhrases.getRandomPhrase()
+        phrase = hangmanPhrases.getRandomPhrase()
         print(phrase)
+        word.text = turnPhraseToHidden(phrase)
+        incorrectGuesses.lineBreakMode = .byWordWrapping;
+        incorrectGuesses.numberOfLines = 0;
+        incorrectGuesses.text = "Incorrect Guesses: "
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,7 +126,7 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 
