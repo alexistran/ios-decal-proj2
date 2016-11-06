@@ -36,6 +36,7 @@ class GameViewController: UIViewController {
             incorrectGuesses.text = incorrectGuesses.text! + incG
             incorrectGuessCount += 1
             changeImage(incorrectGuessCount)
+            print(incorrectGuessCount)
         }
         charGuess.text = ""
         
@@ -73,7 +74,7 @@ class GameViewController: UIViewController {
         incorrectGuesses.text = "Incorrect Guesses: "
         currChar = " "
         incorrectGuessCount = 0
-        wordHolder = ""
+    
 
     }
     
@@ -124,6 +125,8 @@ class GameViewController: UIViewController {
     func addCorrectChar(_ char: Character, _ indexArr: [Int], _ wordChange: String) -> String {
         var strArr = [Character](wordChange.characters)
         var newStr = ""
+        print("HERE: ")
+        print(strArr)
         for i in indexArr {
             strArr[i] = char
             print("index: " + String(i))
