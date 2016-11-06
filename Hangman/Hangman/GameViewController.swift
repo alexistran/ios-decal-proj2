@@ -38,6 +38,59 @@ class GameViewController: UIViewController {
             changeImage(incorrectGuessCount)
         }
         charGuess.text = ""
+        
+        if ifLost() {
+            popUpAlertLoser()
+        } else if (ifWon()) {
+            popUpAlertWinner()
+        }
+    }
+    
+    func popUpAlertLoser() {
+        let alertController = UIAlertController(title: "You Lost!", message:
+            ("The phrase was: " + phrase), preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Start Over", style: UIAlertActionStyle.default,handler: startOverHandler))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func popUpAlertWinner() {
+        let alertController = UIAlertController(title: "You won!", message:
+            ("The phrase was: " + phrase), preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Start Over", style: UIAlertActionStyle.default,handler: startOverHandler))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func startOverHandler(alert: UIAlertAction!) {
+        let hangmanPhrases = HangmanPhrases()
+        phrase = hangmanPhrases.getRandomPhrase()
+        print(phrase)
+        wordHolder = turnPhraseToHidden(phrase)
+        word.text = addSpacesForDisplay(wordHolder)
+        incorrectGuesses.lineBreakMode = .byWordWrapping;
+        incorrectGuesses.numberOfLines = 0;
+        incorrectGuesses.text = "Incorrect Guesses: "
+        currChar = " "
+        incorrectGuessCount = 0
+        wordHolder = ""
+
+    }
+    
+    func ifWon() -> Bool {
+        if wordHolder.contains("_") {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func ifLost() -> Bool {
+        if incorrectGuessCount == 6 {
+            return true
+        } else {
+        return false
+        }
     }
     
     func addSpacesForDisplay(_ p:String) -> String {
