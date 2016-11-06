@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
     var phrase = ""
     var currChar: Character = " "
     var incorrectGuessCount: Int = 0
+    var wordHolder: String = ""
    
     
     @IBAction func guess(_ sender: UIButton) {
@@ -28,7 +29,8 @@ class GameViewController: UIViewController {
         }
         else if isGuessCorrect(charGuess.text!, phrase) {
             let indexArr = getIndexes(phrase, currChar)
-            word.text = addCorrectChar(currChar, indexArr, word.text!)
+            wordHolder = addCorrectChar(currChar, indexArr, wordHolder)
+            word.text = addSpacesForDisplay(wordHolder)
         } else {
             let incG: String = String(currChar) + " "
             incorrectGuesses.text = incorrectGuesses.text! + incG
@@ -36,6 +38,16 @@ class GameViewController: UIViewController {
             changeImage(incorrectGuessCount)
         }
         charGuess.text = ""
+    }
+    
+    func addSpacesForDisplay(_ p:String) -> String {
+        var s = ""
+        let pArr = [Character](p.characters)
+        for i in pArr {
+            let temp: String = String(i) + " "
+            s += temp
+        }
+        return s
     }
     
     func changeImage(_ count: Int) {
@@ -61,9 +73,12 @@ class GameViewController: UIViewController {
         var newStr = ""
         for i in indexArr {
             strArr[i] = char
+            print("index: " + String(i))
         }
+        print(strArr)
         for i in strArr {
             newStr += String(i)
+            print(newStr)
         }
         return newStr
         
@@ -89,7 +104,7 @@ class GameViewController: UIViewController {
             if i == " " {
                 underscoreStr += " "
             } else {
-                underscoreStr += "_ "
+                underscoreStr += "_"
             }
         }
         print(underscoreStr)
@@ -97,12 +112,15 @@ class GameViewController: UIViewController {
     }
     
     func isGuessCorrect(_ c: String, _ phrase: String) -> Bool {
-        let cArr = [Character](c.characters)
+        let cUpper = c.uppercased()
+        let cArr = [Character](cUpper.characters)
         currChar = cArr[0]
-        if (phrase.range(of: String(currChar)) == nil) {
-            return false
+        if phrase.contains(String(currChar)) {
+            print("true")
+            return true
         } else {
-        return true
+            print("false")
+            return false
         }
     }
     
@@ -114,7 +132,8 @@ class GameViewController: UIViewController {
         let hangmanPhrases = HangmanPhrases()
         phrase = hangmanPhrases.getRandomPhrase()
         print(phrase)
-        word.text = turnPhraseToHidden(phrase)
+        wordHolder = turnPhraseToHidden(phrase)
+        word.text = addSpacesForDisplay(wordHolder)
         incorrectGuesses.lineBreakMode = .byWordWrapping;
         incorrectGuesses.numberOfLines = 0;
         incorrectGuesses.text = "Incorrect Guesses: "
