@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hangman/GameViewController.swift"
-            timestampString = "500118703.706222"
+            timestampString = "500410484.438837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "turnPhraseToHidden(_:)"
             landmarkType = "7">
          </BreakpointContent>

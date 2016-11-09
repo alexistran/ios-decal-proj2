@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,6 +34,9 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="hangman1.gif" translatesAutoresizingMaskIntoConstraints="NO" id="hLG-jR-adA">
                                 <frame key="frameInset" minX="122" minY="122" width="135" height="135"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hLG-jR-adA" secondAttribute="height" multiplier="1:1" id="BlY-QS-qoZ"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrT-SP-tKl">
                                 <frame key="frameInset" minX="235" minY="429" width="46" height="30"/>
@@ -63,7 +67,7 @@
                             <constraint firstItem="hLG-jR-adA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="105" id="d6J-9R-zw1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gk5-yJ-xTc" secondAttribute="trailing" constant="102" id="mmz-VV-kAq"/>
                             <constraint firstItem="r4Y-ps-LNY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="65" id="sC1-Kq-ZVQ"/>
-                            <constraint firstItem="r4Y-ps-LNY" firstAttribute="top" secondItem="hLG-jR-adA" secondAttribute="bottom" constant="25" id="vy3-C3-n8X"/>
+                            <constraint firstItem="r4Y-ps-LNY" firstAttribute="top" secondItem="hLG-jR-adA" secondAttribute="bottom" constant="40" id="vy3-C3-n8X"/>
                         </constraints>
                     </view>
                     <connections>

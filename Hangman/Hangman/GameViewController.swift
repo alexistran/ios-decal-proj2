@@ -74,7 +74,7 @@ class GameViewController: UIViewController {
         incorrectGuesses.text = "Incorrect Guesses: "
         currChar = " "
         incorrectGuessCount = 0
-    
+        changeImage(incorrectGuessCount)
 
     }
     
@@ -105,7 +105,9 @@ class GameViewController: UIViewController {
     }
     
     func changeImage(_ count: Int) {
-        if count == 1 {
+        if count == 0 {
+            image.image = UIImage(named: "hangman1.gif")
+        } else if count == 1 {
             image.image = UIImage(named: "hangman2.gif")
         } else if count == 2 {
             image.image = UIImage(named: "hangman3.gif")
